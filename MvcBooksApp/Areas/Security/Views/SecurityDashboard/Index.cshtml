@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Управление безопасностью";
+}
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="", area="" })">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+    </ol>
+</nav>
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="container-fluid pb-3">
+    <div class="d-grid gap-3" style="grid-template-columns: 1fr 1fr 1fr; ">
+        <div class="bg-light border rounded-3">
+            <div class="card">
+                <div class="card-header">
+                    Роли
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Управление ролями </h5>
+                    <p class="card-text">Список ролей</p>
+
+                    @Html.ActionLink("Перейти", "Index",
+                            new { controller = "SecurityRoles", area = "Security" },
+                            new { @class = "btn btn-primary" })
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light border rounded-3">
+            <div class="card">
+                <div class="card-header">
+                    Пользователи
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Управление пользователями </h5>
+                    <p class="card-text">Аттрибуты и роли пользователей</p>
+
+                    @Html.ActionLink("Перейти", "Index",
+                            new { controller = "SecurityUsers", area = "Security" },
+                            new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

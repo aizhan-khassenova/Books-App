@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Главная страница";
+}
+
+<div class="container-fluid pb-3">
+    <div class="d-grid gap-3" style="grid-template-columns: 1fr 1fr 1fr; ">
+        <div class="bg-light border rounded-3">
+            <div class="card">
+                <div class="card-header">
+                    Категории
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Управление категориями </h5>
+                    <p class="card-text">Управление категориями книг</p>
+
+                    @Html.ActionLink("Перейти", "Index",
+                            new { controller = "ManageCategories" },
+                            new { @class = "btn btn-primary" })
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light border rounded-3">
+            <div class="card">
+                <div class="card-header">
+                    Авторы
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Управление авторами </h5>
+                    <p class="card-text">Управление авторами книг</p>
+
+                    @Html.ActionLink("Перейти", "Index",
+                            new { controller = "ManageAuthors" },
+                            new { @class = "btn btn-primary" })
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light border rounded-3">
+            <div class="card">
+                <div class="card-header">
+                    Книги
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Управление книгами </h5>
+                    <p class="card-text">Список книг. Управление книжной полкой</p>
+
+                    @Html.ActionLink("Перейти", "Index",
+                            new { controller = "ManageBooks" },
+                            new { @class = "btn btn-primary" })
+
+
+                </div>
+            </div>
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="bg-light border rounded-3">
+                <div class="card">
+                    <div class="card-header">
+                        Безопасность
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Безопасность </h5>
+                        <p class="card-text">Список ролей. Управление пользователями и их доступом</p>
+
+                        @Html.ActionLink("Перейти", "Index",
+                                new { controller = "SecurityDashboard", area = "Security" },
+                                new { @class = "btn btn-primary" })
+
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

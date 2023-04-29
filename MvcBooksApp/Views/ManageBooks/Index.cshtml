@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MvcBooksApp.ViewModels.DisplayBookViewModel>
+
+@{
+    ViewBag.Title = "Список книг";
+}
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="" })">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+    </ol>
+</nav>
+
+<h2>@ViewBag.Title</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-secondary">
+            <i class="glyphicon glyphicon-plus-sign"></i> добавить
+        </a>
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-success btn-sm" href="@Url.Action("Edit", new { id = item.Id })">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                }
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.Id })">
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </a>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a onclick="return ConfirmAndDelete('Удалить данную запись', this);"
+                       class="btn btn-danger btn-sm"
+                       data-href="@Url.Action("Delete", new { id = item.Id })">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        function ConfirmAndDelete(warnMessage, el) {
+            if (confirm(warnMessage)) {
+                //TODO
+                let url = $(el).data('href');
+
+                $.post(url, function () {
+                    alert('Хорошо!');
+                    window.location.reload();
+                })
+                    .fail(function () {
+                        alert("Ошибка удаления!");
+                    });
+            }
+            return false;
+        }
+    </script>
+}

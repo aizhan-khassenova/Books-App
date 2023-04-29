@@ -1,0 +1,44 @@
+﻿@*@model MvcBooksApp.Models.Role*@
+@model MvcBooksApp.Areas.Security.ViewModels.DisplayRoleViewModel
+
+@{
+    ViewBag.Title = "Информация";
+}
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="", area="" })">Главная</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="SecurityDashboard" })">Управление безопасностью</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="SecurityRoles" })">Управление ролями</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+    </ol>
+</nav>
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <div class="form-actions no-color">
+
+        <a class="btn btn-success" href="@Url.Action("Edit", new { id=Model.Id })">
+            <i class="glyphicon glyphicon-pencil"></i> редактировать
+        </a>
+
+        <a class="btn btn-secondary" href="@Url.Action("Index")">
+            Отмена
+        </a>
+
+    </div>
+</p>

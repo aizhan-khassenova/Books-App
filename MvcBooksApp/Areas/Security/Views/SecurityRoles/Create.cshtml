@@ -1,0 +1,73 @@
+﻿@*@model MvcBooksApp.Models.Role*@
+@model MvcBooksApp.Areas.Security.ViewModels.CreateRoleViewModel
+@{
+    ViewBag.Title = "Добавить";
+}
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="", area="" })">Главная</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="SecurityDashboard" })">Управление безопасностью</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", new { controller="SecurityRoles" })">Управление ролями</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+    </ol>
+</nav>
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Ajax.BeginForm(new AjaxOptions
+{
+    OnSuccess = "reportSuccess",
+    OnFailure = "reportError"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <a class="btn btn-secondary" href="@Url.Action("Index")">
+                    Назад к списку
+                </a>
+
+                <button type="submit" class="btn btn-success">
+                    Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script type="text/javascript">
+        function reportSuccess(data) {
+            if (data.status) {
+                window.location.href = '@Url.Action("Index")';
+            }
+            else {
+                alert('Форма не валидная');
+            }
+        }
+
+        function reportError(req, e) {
+            console.log(e);
+            alert(e);
+        }
+    </script>
+}
